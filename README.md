@@ -2,7 +2,7 @@
 
 backend for the NocaCan project
 
-[TODO.md](https://github.com/nova-can/backend/blob/main/TODO.md)
+[TODO.md](https://github.com/nova-can/backend/blob/main/TODO.md) | [deployment guide](https://github.com/nova-can/backend/blob/main/deployment.md)
 
 NodeJS + Express
 
