@@ -16,7 +16,7 @@
 
 const axios = require("axios");
 
-const url = "http://localhost:3000/api/sensor-data/add";
+const url = "http://localhost:3001/api/sensor-data/add";
 const api_key = "YOUR_API_KEY_HERE"; // not needed yet, but will be used in the future
 
 const data = {
