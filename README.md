@@ -1,6 +1,6 @@
 ## BackEnd
 
-backend for the NocaCan project
+backend for the NovaGlider project
 
 [TODO.md](https://github.com/nova-glider/backend/blob/main/TODO.md) | [deployment guide](https://github.com/nova-glider/backend/blob/main/deployment.md)
 
