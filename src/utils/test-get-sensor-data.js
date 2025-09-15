@@ -1,7 +1,7 @@
 /*
- * This file is part of the NovaCan project.
+ * This file is part of the NovaGlider project.
  *
- * Copyright (C) 2025 NovaCan, Wannes Ghysels
+ * Copyright (C) 2025 NovaGlider, Wannes Ghysels
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
