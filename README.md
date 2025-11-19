@@ -40,7 +40,7 @@ example request body:
 
 </details>
 
-<details><summary>/api/sensor-data/get</summary>
+<details><summary>/api/sensor-data/get/latest</summary>
 Retrieves latest sensor data.
 
 It first queries the memory for fast serving, otherwise it reads the latest data in db/
