@@ -27,9 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 // Configure CORS
 // If you want to restrict origins, set ALLOWED_ORIGINS to a comma-separated list, e.g. "https://example.com,http://localhost:3000"
 // If ALLOWED_ORIGINS is not set, fallback to allowing localhost:3000 (adjust as needed).
-const allowedOrigins = process.env.ALLOWED_ORIGINS
-  ? process.env.ALLOWED_ORIGINS.split(",")
-  : ["http://localhost:3000"];
+const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(",") || ["http://localhost:3000"];
 
 // If you want to allow everything (not recommended for production), set ALLOWED_ORIGINS='*'
 const corsOptions = {
@@ -38,20 +36,20 @@ const corsOptions = {
       // non-browser requests (e.g., curl, server-to-server) have no origin; allow them
       return callback(null, true);
     }
-    if (allowedOrigins.includes("*") || allowedOrigins.indexOf(origin) !== -1) {
+    if (allowedOrigins.includes("*origin") || allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
       callback(new Error("CORS not allowed for origin: " + origin));
     }
   },
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
+  methods: ["GET", "POST"], //  "PUT", "DELETE", "OPTIONS"
+  // allowedHeaders: ["Content-Type", "Authorization"],
 };
 
 // Apply CORS middleware
 app.use(cors(corsOptions));
 // Allow preflight for all routes
-app.options("*", cors(corsOptions));
+app.options("*routes", cors(corsOptions));
 
 let latestData = {};
 
