@@ -16,12 +16,42 @@
 
 const express = require("express");
 const fs = require("fs");
+const cors = require("cors");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Configure CORS
+// If you want to restrict origins, set ALLOWED_ORIGINS to a comma-separated list, e.g. "https://example.com,http://localhost:3000"
+// If ALLOWED_ORIGINS is not set, fallback to allowing localhost:3000 (adjust as needed).
+const allowedOrigins = process.env.ALLOWED_ORIGINS
+  ? process.env.ALLOWED_ORIGINS.split(",")
+  : ["http://localhost:3000"];
+
+// If you want to allow everything (not recommended for production), set ALLOWED_ORIGINS='*'
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (!origin) {
+      // non-browser requests (e.g., curl, server-to-server) have no origin; allow them
+      return callback(null, true);
+    }
+    if (allowedOrigins.includes("*") || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS not allowed for origin: " + origin));
+    }
+  },
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+// Apply CORS middleware
+app.use(cors(corsOptions));
+// Allow preflight for all routes
+app.options("*", cors(corsOptions));
 
 let latestData = {};
 
@@ -40,7 +70,8 @@ app.get("/", (req, res) => {
 app.post("/api/sensor-data/add", (req, res) => {
   const { timestamp } = req.body;
 
-  const latestData = req.body;
+  // update in-memory latestData (do not shadow the outer variable)
+  latestData = req.body;
 
   // Clean the timestamp to use as a filename (e.g., "20250605142345" from "2025-06-05T14:23:45Z")
   const timestampCleaned = timestamp.replace(/[-:T]/g, "").slice(0, 14);
